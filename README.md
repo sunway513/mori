@@ -94,6 +94,17 @@ Benchmark result on the following configurations:
 
 - Session is a specific technique used in MORI-IO to reduce overhead
 
+## Documentation
+
+| **Topic** | **Description** | **Guide** |
+|---|---|---|
+| MORI-EP | Dispatch/combine API, kernel types, configuration, usage examples | [EP Guide](docs/MORI-EP-GUIDE.md) |
+| MORI-EP Benchmark | Intra/inter-node benchmark commands and NIC selection | [EP Benchmark](docs/MORI-EP-BENCHMARK.md) |
+| MORI Shmem | Symmetric memory APIs, initialization, memory management | [Shmem Guide](docs/MORI-SHMEM-GUIDE.md) |
+| MORI-IO | P2P communication concepts, engine/backend/session design | [IO Introduction](docs/MORI-IO-INTRO.md) |
+| MORI-IO Benchmark | IO benchmark commands and performance results | [IO Benchmark](docs/MORI-IO-BENCHMARK.md) |
+| MORI-VIZ | Warp-level kernel profiler with Perfetto integration | [Profiler](docs/PROFILER.md) |
+
 ## Installation
 
 ### Prerequisites
