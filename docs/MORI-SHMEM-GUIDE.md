@@ -2,6 +2,20 @@
 
 MORI Shmem provides OpenSHMEM-style symmetric memory APIs for GPU memory management and RDMA communication. It is the foundation layer that MORI-EP and MORI-IO build upon — shmem must be initialized before using any other MORI component.
 
+## Table of Contents
+
+- [Quick Reference](#quick-reference)
+- [1. Concepts](#1-concepts)
+- [2. Initialization](#2-initialization)
+- [3. Query APIs](#3-query-apis)
+- [4. Memory Management](#4-memory-management)
+- [5. P2P Address Translation](#5-p2p-address-translation)
+- [6. Synchronization](#6-synchronization)
+- [7. HIP Module Init (Triton Integration)](#7-hip-module-init-triton-integration)
+- [8. Initialization Flags](#8-initialization-flags)
+- [Environment Variables](#environment-variables)
+- [Source Files](#source-files)
+
 ## Quick Reference
 
 ```python

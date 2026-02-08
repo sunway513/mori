@@ -2,6 +2,29 @@
 
 MORI-EP provides high-performance MoE (Mixture of Experts) dispatch and combine kernels for Expert Parallelism. It supports both intra-node (XGMI) and inter-node (RDMA) communication, delivering state-of-the-art bandwidth for token routing in models like DeepSeek V3.
 
+## Table of Contents
+
+- [Quick Reference](#quick-reference)
+- [1. Kernel Types](#1-kernel-types)
+- [2. Configuration](#2-configuration)
+- [3. Operator API](#3-operator-api)
+  - [dispatch()](#dispatch)
+  - [combine()](#combine)
+  - [Split dispatch/combine (send + recv)](#split-dispatchcombine-send--recv)
+  - [reset()](#reset)
+  - [get_dispatch_src_token_pos()](#get_dispatch_src_token_pos)
+  - [get_registered_combine_input_buffer()](#get_registered_combine_input_buffer)
+- [4. Standard MoE Compatibility (DeepEP)](#4-standard-moe-compatibility-deepep)
+- [5. Initialization](#5-initialization)
+- [6. Launch Configuration](#6-launch-configuration)
+- [7. Complete Example](#7-complete-example)
+- [8. Environment Variables](#8-environment-variables)
+- [9. Benchmarking](#9-benchmarking)
+- [10. Profiling with MORI-VIZ](#10-profiling-with-mori-viz)
+- [11. Framework Integration](#11-framework-integration)
+- [Build Options](#build-options)
+- [Source Files](#source-files)
+
 ## Quick Reference
 
 ```python
