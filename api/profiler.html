@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profiler &mdash; MORI 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=01f34227"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Communication Operations" href="communication.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #C00000" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MORI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../installation.html#from-source">From Source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-communication-example">Basic Communication Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#all-gather-example">All-Gather Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#profiling-example">Profiling Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-INTRO.html">MORI-IO Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#design-concepts">Design &amp; Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#workflow">Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#python-api-quick-reference">Python API Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#example-basic-read-write">Example: Basic Read/Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#environment-configuration">Environment &amp; Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-BENCHMARK.html">MORI-IO Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-commands">Benchmark Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-arguments">Benchmark Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-read">Results: Thor2 RDMA Read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-write">Results: Thor2 RDMA Write</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#message-size-sweep">Message Size Sweep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#batch-size-sweep">Batch Size Sweep</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-cx7-rdma-batch-size-1">Results: CX7 RDMA (Batch Size = 1)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#write">Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#read">Read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-EP-BENCHMARK.html">MORI-EP Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#intra-node">Intra-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#inter-node">Inter-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#nic-selection">NIC Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../PROFILER.html">MORI-VIZ (Visualizer)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#instrumentation">Instrumentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#include-headers">1. Include Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#define-profiler-context">2. Define Profiler Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#add-trace-points">3. Add Trace Points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#build-code-generation">Build &amp; Code Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#enabling-the-profiler">Enabling the Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#code-generation">Code Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#python-analysis">Python Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#device-side-elapsed-time-measurement">Device-side Elapsed Time Measurement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PROFILER.html#viewing-the-trace">Viewing the Trace</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../PROFILER.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="communication.html">Communication Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#all-reduce">All-Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#all-gather">All-Gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#reduce-scatter">Reduce-Scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#broadcast">Broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#barrier">Barrier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#send-recv">Send/Recv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#performance-characteristics">Performance Characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#starting-the-profiler">Starting the Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#saving-results">Saving Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#analyzing-results">Analyzing Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#context-manager">Context Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #C00000" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MORI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Profiler</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/profiler.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="profiler">
+<h1>Profiler<a class="headerlink" href="#profiler" title="Link to this heading"></a></h1>
+<p>MORI includes a built-in profiler for analyzing communication performance.</p>
+<section id="starting-the-profiler">
+<h2>Starting the Profiler<a class="headerlink" href="#starting-the-profiler" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mori</span>
+
+<span class="c1"># Start profiling</span>
+<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c1"># Your code here</span>
+<span class="n">mori</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+
+<span class="c1"># Stop profiling</span>
+<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="saving-results">
+<h2>Saving Results<a class="headerlink" href="#saving-results" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save as JSON</span>
+<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="s2">&quot;profile.json&quot;</span><span class="p">)</span>
+
+<span class="c1"># Save as CSV</span>
+<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="s2">&quot;profile.csv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="analyzing-results">
+<h2>Analyzing Results<a class="headerlink" href="#analyzing-results" title="Link to this heading"></a></h2>
+<p>Profile data includes:</p>
+<ul class="simple">
+<li><p>Operation name</p></li>
+<li><p>Duration (microseconds)</p></li>
+<li><p>Tensor size (bytes)</p></li>
+<li><p>Bandwidth (GB/s)</p></li>
+<li><p>Timestamp</p></li>
+</ul>
+<p><strong>Example output:</strong></p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;operations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all_reduce&quot;</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;duration_us&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.3</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4194304</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;bandwidth_gbps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">31.8</span><span class="p">,</span>
+<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234567890</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="context-manager">
+<h2>Context Manager<a class="headerlink" href="#context-manager" title="Link to this heading"></a></h2>
+<p>Use as a context manager for automatic start/stop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">():</span>
+    <span class="n">mori</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
+    <span class="n">mori</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
+
+<span class="c1"># Results automatically saved</span>
+</pre></div>
+</div>
+</section>
+<section id="advanced-features">
+<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
+<p><strong>Filter by operation:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">operations</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;all_reduce&quot;</span><span class="p">,</span> <span class="s2">&quot;all_gather&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>Set output directory:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">set_output_dir</span><span class="p">(</span><span class="s2">&quot;/path/to/profiles&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Enable detailed logging:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="visualization">
+<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
+<p>MORI profiler output can be visualized with standard tools:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to Chrome trace format</span>
+python<span class="w"> </span>-m<span class="w"> </span>mori.profiler.convert<span class="w"> </span>profile.json<span class="w"> </span>--format<span class="w"> </span>chrome
+
+<span class="c1"># View in chrome://tracing</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="communication.html" class="btn btn-neutral float-left" title="Communication Operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AMD.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
