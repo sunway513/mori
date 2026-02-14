@@ -1,0 +1,540 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MORI Documentation Accuracy Audit Report &mdash; MORI 0.1.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=01f34227"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #C00000" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MORI
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#installation-methods">Installation Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="installation.html#from-source">From Source</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#verification">Verification</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#basic-communication-example">Basic Communication Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#all-gather-example">All-Gather Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#profiling-example">Profiling Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Features</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="MORI-IO-INTRO.html">MORI-IO Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#design-concepts">Design &amp; Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#workflow">Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#python-api-quick-reference">Python API Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#example-basic-read-write">Example: Basic Read/Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#environment-configuration">Environment &amp; Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-INTRO.html#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MORI-IO-BENCHMARK.html">MORI-IO Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#benchmark-commands">Benchmark Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#benchmark-arguments">Benchmark Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#results-thor2-rdma-read">Results: Thor2 RDMA Read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#results-thor2-rdma-write">Results: Thor2 RDMA Write</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MORI-IO-BENCHMARK.html#message-size-sweep">Message Size Sweep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MORI-IO-BENCHMARK.html#batch-size-sweep">Batch Size Sweep</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-IO-BENCHMARK.html#results-cx7-rdma-batch-size-1">Results: CX7 RDMA (Batch Size = 1)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="MORI-IO-BENCHMARK.html#write">Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MORI-IO-BENCHMARK.html#read">Read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="MORI-EP-BENCHMARK.html">MORI-EP Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="MORI-EP-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-EP-BENCHMARK.html#intra-node">Intra-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-EP-BENCHMARK.html#inter-node">Inter-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="MORI-EP-BENCHMARK.html#nic-selection">NIC Selection</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="PROFILER.html">MORI-VIZ (Visualizer)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#instrumentation">Instrumentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#include-headers">1. Include Headers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#define-profiler-context">2. Define Profiler Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#add-trace-points">3. Add Trace Points</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#build-code-generation">Build &amp; Code Generation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#enabling-the-profiler">Enabling the Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#code-generation">Code Generation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#python-analysis">Python Analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#device-side-elapsed-time-measurement">Device-side Elapsed Time Measurement</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PROFILER.html#viewing-the-trace">Viewing the Trace</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="PROFILER.html#best-practices">Best Practices</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/communication.html">Communication Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#all-reduce">All-Reduce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#all-gather">All-Gather</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#reduce-scatter">Reduce-Scatter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#broadcast">Broadcast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#barrier">Barrier</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#send-recv">Send/Recv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communication.html#performance-characteristics">Performance Characteristics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/profiler.html">Profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#starting-the-profiler">Starting the Profiler</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#saving-results">Saving Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#analyzing-results">Analyzing Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#context-manager">Context Manager</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#advanced-features">Advanced Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/profiler.html#visualization">Visualization</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #C00000" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MORI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">MORI Documentation Accuracy Audit Report</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/DOCUMENTATION_AUDIT_REPORT.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="mori-documentation-accuracy-audit-report">
+<h1>MORI Documentation Accuracy Audit Report<a class="headerlink" href="#mori-documentation-accuracy-audit-report" title="Link to this heading"></a></h1>
+<p><strong>Date:</strong> 2026-02-14
+<strong>Auditor:</strong> Claude Sonnet 4.5
+<strong>Scope:</strong> Complete factual accuracy check of all documentation</p>
+<section id="executive-summary">
+<h2>Executive Summary<a class="headerlink" href="#executive-summary" title="Link to this heading"></a></h2>
+<p>This audit identified <strong>~15 critical factual errors</strong> in the MORI documentation. The most severe issue is that <strong>the entire collective communication API documented does not exist in the codebase</strong>. MORI is not a distributed training communication library as the docs suggest - it provides Expert Parallelism, point-to-point I/O, and symmetric memory management.</p>
+</section>
+<section id="critical-issues">
+<h2>Critical Issues<a class="headerlink" href="#critical-issues" title="Link to this heading"></a></h2>
+<section id="installation-docs-installation-rst">
+<h3>1. Installation (<code class="docutils literal notranslate"><span class="pre">docs/installation.rst</span></code>)<a class="headerlink" href="#installation-docs-installation-rst" title="Link to this heading"></a></h3>
+<section id="issue-1-1-python-version-mismatch-fixed">
+<h4>Issue 1.1: Python Version Mismatch [FIXED ✓]<a class="headerlink" href="#issue-1-1-python-version-mismatch-fixed" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Documentation claims</strong>: Python 3.8 or later</p></li>
+<li><p><strong>Actual requirement</strong>: Python 3.10+ (setup.py line 172)</p></li>
+<li><p><strong>Status</strong>: FIXED</p></li>
+</ul>
+</section>
+<section id="issue-1-2-non-existent-requirements-txt-fixed">
+<h4>Issue 1.2: Non-existent requirements.txt [FIXED ✓]<a class="headerlink" href="#issue-1-2-non-existent-requirements-txt-fixed" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Instructs <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-r</span> <span class="pre">requirements.txt</span></code></p></li>
+<li><p><strong>Actual</strong>: No <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> exists (only <code class="docutils literal notranslate"><span class="pre">requirements-build.txt</span></code>)</p></li>
+<li><p><strong>Status</strong>: FIXED - removed reference, added PyTorch install note</p></li>
+</ul>
+</section>
+<section id="issue-1-3-non-functional-verification-code-fixed">
+<h4>Issue 1.3: Non-functional Verification Code [FIXED ✓]<a class="headerlink" href="#issue-1-3-non-functional-verification-code-fixed" title="Link to this heading"></a></h4>
+<ul class="simple">
+<li><p><strong>Documentation</strong>: Uses <code class="docutils literal notranslate"><span class="pre">mori.__version__</span></code> and <code class="docutils literal notranslate"><span class="pre">mori.is_available()</span></code></p></li>
+<li><p><strong>Actual</strong>: Neither function exists in mori/<strong>init</strong>.py</p></li>
+<li><p><strong>Status</strong>: FIXED - replaced with working module checks</p></li>
+</ul>
+</section>
+</section>
+<section id="api-documentation-collective-communication-docs-api-communication-rst">
+<h3>2. API Documentation - Collective Communication (<code class="docutils literal notranslate"><span class="pre">docs/api/communication.rst</span></code>)<a class="headerlink" href="#api-documentation-collective-communication-docs-api-communication-rst" title="Link to this heading"></a></h3>
+<section id="issue-2-1-entire-api-does-not-exist-critical-not-fixed">
+<h4>Issue 2.1: ENTIRE API DOES NOT EXIST [CRITICAL - NOT FIXED]<a class="headerlink" href="#issue-2-1-entire-api-does-not-exist-critical-not-fixed" title="Link to this heading"></a></h4>
+<p>The documentation describes a PyTorch-like distributed training API that <strong>completely does not exist</strong>:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Documented Function</p></th>
+<th class="head"><p>Exists?</p></th>
+<th class="head"><p>Notes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.init_process_group()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.all_reduce()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.all_gather()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.reduce_scatter()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.broadcast()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.barrier()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.send()</span></code> / <code class="docutils literal notranslate"><span class="pre">mori.recv()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.ReduceOp</span></code> enum</p></td>
+<td><p>✗ NO</p></td>
+<td><p>Does not exist</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What MORI Actually Provides:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>MORI-EP (Expert Parallelism)</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">EpDispatchCombineOp</span></code> - MoE token routing operations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EpDispatchCombineConfig</span></code> - Configuration for EP operations</p></li>
+</ul>
+</li>
+<li><p><strong>MORI-IO (Point-to-Point Communication)</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IOEngine</span></code> - RDMA-based P2P communication</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">IOEngineConfig</span></code> - I/O engine configuration</p></li>
+<li><p>Used for KVCache transfer between GPUs</p></li>
+</ul>
+</li>
+<li><p><strong>MORI Shmem (Symmetric Memory)</strong>:</p>
+<ul class="simple">
+<li><p>OpenSHMEM-style symmetric memory APIs</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">shmem_torch_process_group_init()</span></code> - Initialize SHMEM with PyTorch</p></li>
+<li><p>Memory allocation and synchronization primitives</p></li>
+</ul>
+</li>
+<li><p><strong>Kernel Profiler</strong>:</p>
+<ul class="simple">
+<li><p>Warp-level kernel profiling</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">export_to_perfetto()</span></code> - Export traces to Perfetto format</p></li>
+</ul>
+</li>
+</ol>
+<p><strong>Impact</strong>: All code examples in communication.rst will fail. The entire file needs to be rewritten.</p>
+<p><strong>Recommendation</strong>: Completely rewrite <code class="docutils literal notranslate"><span class="pre">docs/api/communication.rst</span></code> to document the actual MORI APIs (EP, IO, Shmem).</p>
+</section>
+</section>
+<section id="api-documentation-profiler-docs-api-profiler-rst">
+<h3>3. API Documentation - Profiler (<code class="docutils literal notranslate"><span class="pre">docs/api/profiler.rst</span></code>)<a class="headerlink" href="#api-documentation-profiler-docs-api-profiler-rst" title="Link to this heading"></a></h3>
+<section id="issue-3-1-profiler-api-completely-wrong-critical-not-fixed">
+<h4>Issue 3.1: Profiler API Completely Wrong [CRITICAL - NOT FIXED]<a class="headerlink" href="#issue-3-1-profiler-api-completely-wrong-critical-not-fixed" title="Link to this heading"></a></h4>
+<p>The documentation describes a high-level profiler API that does not exist:</p>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Documented Function</p></th>
+<th class="head"><p>Exists?</p></th>
+<th class="head"><p>Actual API</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.start()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.stop()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.save_results()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">mori.profiler.profile()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.filter()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.set_output_dir()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">mori.profiler.set_log_level()</span></code></p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-odd"><td><p>CSV export</p></td>
+<td><p>✗ NO</p></td>
+<td><p>-</p></td>
+</tr>
+<tr class="row-even"><td><p>Chrome trace conversion</p></td>
+<td><p>✗ NO</p></td>
+<td><p>Uses Perfetto format</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>What Actually Exists</strong>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">mori.kernel_profiler.export_to_perfetto()</span></code> - Export kernel traces to Perfetto JSON</p></li>
+<li><p>Warp-level kernel profiling (low-level, not operation-level)</p></li>
+</ul>
+<p><strong>Impact</strong>: All profiler examples will fail</p>
+<p><strong>Recommendation</strong>: Rewrite <code class="docutils literal notranslate"><span class="pre">docs/api/profiler.rst</span></code> to document actual kernel profiler API</p>
+</section>
+</section>
+<section id="quickstart-docs-quickstart-rst">
+<h3>4. Quickstart (<code class="docutils literal notranslate"><span class="pre">docs/quickstart.rst</span></code>)<a class="headerlink" href="#quickstart-docs-quickstart-rst" title="Link to this heading"></a></h3>
+<section id="issue-4-1-all-examples-use-non-existent-api-not-fixed">
+<h4>Issue 4.1: All Examples Use Non-existent API [NOT FIXED]<a class="headerlink" href="#issue-4-1-all-examples-use-non-existent-api-not-fixed" title="Link to this heading"></a></h4>
+<p>All three quickstart examples use functions that don’t exist:</p>
+<ul class="simple">
+<li><p>Example 1: <code class="docutils literal notranslate"><span class="pre">mori.init_process_group()</span></code>, <code class="docutils literal notranslate"><span class="pre">mori.all_reduce()</span></code>, <code class="docutils literal notranslate"><span class="pre">mori.ReduceOp.SUM</span></code></p></li>
+<li><p>Example 2: <code class="docutils literal notranslate"><span class="pre">mori.all_gather()</span></code>, <code class="docutils literal notranslate"><span class="pre">mori.get_world_size()</span></code></p></li>
+<li><p>Example 3: <code class="docutils literal notranslate"><span class="pre">mori.profiler.start()</span></code>, <code class="docutils literal notranslate"><span class="pre">mori.profiler.stop()</span></code>, <code class="docutils literal notranslate"><span class="pre">mori.profiler.save_results()</span></code></p></li>
+</ul>
+<p><strong>Impact</strong>: None of the quickstart code will run</p>
+<p><strong>Recommendation</strong>: Replace with working examples from MORI-EP-GUIDE.md or actual test code</p>
+</section>
+</section>
+<section id="index-docs-index-rst">
+<h3>5. Index (<code class="docutils literal notranslate"><span class="pre">docs/index.rst</span></code>)<a class="headerlink" href="#index-docs-index-rst" title="Link to this heading"></a></h3>
+<section id="issue-5-1-misleading-feature-description-not-fixed">
+<h4>Issue 5.1: Misleading Feature Description [NOT FIXED]<a class="headerlink" href="#issue-5-1-misleading-feature-description-not-fixed" title="Link to this heading"></a></h4>
+<p><strong>Documentation claims</strong>:</p>
+<ul class="simple">
+<li><p>“Distributed Training: Efficient all-reduce, all-gather, and reduce-scatter operations”</p></li>
+</ul>
+<p><strong>Reality</strong>:</p>
+<ul class="simple">
+<li><p>MORI is NOT a collective communication library</p></li>
+<li><p>Provides Expert Parallelism (EP), Point-to-Point I/O, and Symmetric Memory (Shmem)</p></li>
+<li><p>Collective ops should use PyTorch’s <code class="docutils literal notranslate"><span class="pre">torch.distributed</span></code></p></li>
+</ul>
+<p><strong>Recommendation</strong>: Update feature list to accurately describe MORI’s actual purpose</p>
+</section>
+</section>
+</section>
+<section id="what-mori-actually-does">
+<h2>What MORI Actually Does<a class="headerlink" href="#what-mori-actually-does" title="Link to this heading"></a></h2>
+<p>Based on the codebase analysis:</p>
+<ol class="arabic simple">
+<li><p><strong>MORI-EP</strong>: Expert Parallelism for Mixture of Experts</p>
+<ul class="simple">
+<li><p>Dispatch tokens to experts</p></li>
+<li><p>Combine expert outputs</p></li>
+<li><p>Optimized for MoE layers in LLMs</p></li>
+</ul>
+</li>
+<li><p><strong>MORI-IO</strong>: High-performance point-to-point communication</p>
+<ul class="simple">
+<li><p>RDMA-based I/O engine</p></li>
+<li><p>KVCache transfer between GPUs</p></li>
+<li><p>Low-latency P2P operations</p></li>
+</ul>
+</li>
+<li><p><strong>MORI Shmem</strong>: Symmetric memory management</p>
+<ul class="simple">
+<li><p>OpenSHMEM-style APIs</p></li>
+<li><p>GPU memory allocation and synchronization</p></li>
+<li><p>Integrates with PyTorch distributed</p></li>
+</ul>
+</li>
+<li><p><strong>Kernel Profiler</strong>: Warp-level profiling tools</p>
+<ul class="simple">
+<li><p>Collect kernel execution traces</p></li>
+<li><p>Export to Perfetto format for visualization</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="recommendations">
+<h2>Recommendations<a class="headerlink" href="#recommendations" title="Link to this heading"></a></h2>
+<section id="immediate-p0">
+<h3>Immediate (P0)<a class="headerlink" href="#immediate-p0" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>✓ Fix Python version requirement (3.8 → 3.10)</p></li>
+<li><p>✓ Fix installation verification code</p></li>
+<li><p>✓ Remove non-existent requirements.txt reference</p></li>
+</ol>
+</section>
+<section id="high-priority-p1-requires-complete-rewrite">
+<h3>High Priority (P1) - Requires Complete Rewrite<a class="headerlink" href="#high-priority-p1-requires-complete-rewrite" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p><strong>Rewrite <code class="docutils literal notranslate"><span class="pre">docs/api/communication.rst</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Remove all non-existent collective communication APIs</p></li>
+<li><p>Document actual MORI-EP APIs</p></li>
+<li><p>Document MORI-IO APIs</p></li>
+<li><p>Document MORI Shmem APIs</p></li>
+</ul>
+</li>
+<li><p><strong>Rewrite <code class="docutils literal notranslate"><span class="pre">docs/api/profiler.rst</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Remove non-existent high-level profiler API</p></li>
+<li><p>Document actual <code class="docutils literal notranslate"><span class="pre">kernel_profiler</span></code> module</p></li>
+<li><p>Document <code class="docutils literal notranslate"><span class="pre">export_to_perfetto()</span></code> function</p></li>
+</ul>
+</li>
+<li><p><strong>Rewrite <code class="docutils literal notranslate"><span class="pre">docs/quickstart.rst</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Replace all examples with working code</p></li>
+<li><p>Show actual MORI-EP usage</p></li>
+<li><p>Show actual MORI-IO usage</p></li>
+<li><p>Show actual kernel profiler usage</p></li>
+</ul>
+</li>
+<li><p><strong>Update <code class="docutils literal notranslate"><span class="pre">docs/index.rst</span></code></strong>:</p>
+<ul class="simple">
+<li><p>Fix feature description</p></li>
+<li><p>Clarify MORI’s actual purpose</p></li>
+<li><p>Add note about using torch.distributed for collectives</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="medium-priority-p2">
+<h3>Medium Priority (P2)<a class="headerlink" href="#medium-priority-p2" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Generate API docs from existing MORI-EP-GUIDE.md</p></li>
+<li><p>Add tutorials from examples/ directory</p></li>
+<li><p>Document integration with PyTorch distributed</p></li>
+</ol>
+</section>
+<section id="low-priority-p3">
+<h3>Low Priority (P3)<a class="headerlink" href="#low-priority-p3" title="Link to this heading"></a></h3>
+<ol class="arabic simple">
+<li><p>Add automated doc tests in CI/CD</p></li>
+<li><p>Generate API reference from code docstrings</p></li>
+<li><p>Add architecture diagrams</p></li>
+</ol>
+</section>
+</section>
+<section id="statistics">
+<h2>Statistics<a class="headerlink" href="#statistics" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Total issues found</strong>: ~15</p></li>
+<li><p><strong>Critical (entire API missing)</strong>: 2</p></li>
+<li><p><strong>High (wrong requirements/examples)</strong>: 3</p></li>
+<li><p><strong>Medium</strong>: 0</p></li>
+<li><p><strong>Low</strong>: 0</p></li>
+</ul>
+</section>
+<section id="files-reviewed">
+<h2>Files Reviewed<a class="headerlink" href="#files-reviewed" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>✓ <code class="docutils literal notranslate"><span class="pre">docs/installation.rst</span></code></p></li>
+<li><p>✓ <code class="docutils literal notranslate"><span class="pre">docs/quickstart.rst</span></code></p></li>
+<li><p>✓ <code class="docutils literal notranslate"><span class="pre">docs/api/communication.rst</span></code></p></li>
+<li><p>✓ <code class="docutils literal notranslate"><span class="pre">docs/api/profiler.rst</span></code></p></li>
+<li><p>✓ <code class="docutils literal notranslate"><span class="pre">docs/index.rst</span></code></p></li>
+</ul>
+</section>
+<section id="reference-documentation">
+<h2>Reference Documentation<a class="headerlink" href="#reference-documentation" title="Link to this heading"></a></h2>
+<p>For accurate API documentation, refer to:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">MORI-EP-GUIDE.md</span></code> in repository root</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">examples/</span></code> directory for working code</p></li>
+<li><p>Source code docstrings in <code class="docutils literal notranslate"><span class="pre">python/mori/</span></code></p></li>
+</ul>
+<hr class="docutils" />
+<p><strong>Report Generated:</strong> 2026-02-14
+<strong>Severity:</strong> CRITICAL - Documentation describes a completely different product
+<strong>Next Steps:</strong> Complete rewrite of API documentation required</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AMD.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

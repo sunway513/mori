@@ -4,10 +4,10 @@ Installation
 Requirements
 ------------
 
-* Python 3.8 or later
-* ROCm 5.7 or later
+* Python 3.10 or later
+* ROCm 6.0 or later (ROCm 6.4+ recommended)
 * PyTorch with ROCm support
-* AMD Instinct GPU (MI200 or MI300 series)
+* AMD Instinct GPU (MI200 or MI300 series recommended)
 
 Installation Methods
 --------------------
@@ -21,10 +21,10 @@ From Source
    git clone --recursive https://github.com/ROCm/mori.git
    cd mori
 
-   # Install dependencies
-   pip install -r requirements.txt
+   # Install PyTorch with ROCm support first
+   # See https://pytorch.org for ROCm installation instructions
 
-   # Build and install
+   # Build and install MORI
    python3 setup.py develop
 
 Environment Variables
@@ -51,8 +51,19 @@ Verify the installation:
 .. code-block:: python
 
    import mori
-   print(f"MORI version: {mori.__version__}")
-   print(f"ROCm available: {mori.is_available()}")
+   import torch
+
+   # Check if modules loaded successfully
+   print("MORI modules available:")
+   print(f"  - mori.shmem: {hasattr(mori, 'shmem')}")
+   print(f"  - mori.ops: {hasattr(mori, 'ops')}")
+   print(f"  - mori.io: {hasattr(mori, 'io')}")
+   print(f"  - mori.kernel_profiler: {hasattr(mori, 'kernel_profiler')}")
+
+   # Check ROCm availability via PyTorch
+   print(f"\nPyTorch version: {torch.__version__}")
+   print(f"ROCm available: {torch.cuda.is_available()}")
+   print(f"ROCm version: {torch.version.hip if hasattr(torch.version, 'hip') else 'N/A'}")
 
 Troubleshooting
 ---------------
