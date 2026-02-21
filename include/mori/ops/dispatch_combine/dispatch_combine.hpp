@@ -38,6 +38,7 @@ namespace mori {
 namespace moe {
 
 enum KernelType { IntraNode = 0, InterNode = 1, InterNodeV1 = 2, InterNodeV1LL = 3, AsyncLL = 4 };
+enum class QuantType { None = 0, Fp8DirectCast = 1 };
 
 inline const char* HipDataTypeToString(hipDataType dtype) {
   switch (dtype) {
@@ -93,6 +94,7 @@ struct EpDispatchCombineConfig {
   int gpuPerNode{8};
   int rdmaBlockNum{1};
   int numQpPerPe{1};
+  QuantType quantType{QuantType::None};
 
   inline __host__ __device__ int MaxNumTokensToSendPerRank() const { return maxNumInpTokenPerRank; }
 
@@ -156,33 +158,35 @@ class EpDispatchCombineHandle {
 
   // When blockNum and warpPerBlock <= 0, kernel will use default values in config
   void LaunchIntraNodeDispatch(int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                               hipStream_t = 0);
+                               hipStream_t = 0, int hiddenDim = -1);
   void LaunchInterNodeDispatch(int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                               hipStream_t = 0);
+                               hipStream_t = 0, int hiddenDim = -1);
   void LaunchIntraNodeCombine(int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                              int useExternalInpBuf = -1, hipStream_t = 0);
+                              int useExternalInpBuf = -1, hipStream_t = 0, int hiddenDim = -1);
   void LaunchInterNodeCombine(int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                              int useExternalInpBuf = -1, hipStream_t = 0);
+                              int useExternalInpBuf = -1, hipStream_t = 0, int hiddenDim = -1);
 
   void LaunchDispatch(KernelType, int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                      hipStream_t = 0);
+                      hipStream_t = 0, int hiddenDim = -1);
   void LaunchCombine(KernelType, int blockNum = -1, int rdmaBlockNum = -1, int warpPerBlock = -1,
-                     int useExternalInpBuf = -1, hipStream_t = 0);
+                     int useExternalInpBuf = -1, hipStream_t = 0, int hiddenDim = -1);
 
 #ifdef ENABLE_STANDARD_MOE_ADAPT
   void LaunchDispatchForStandardMoE(KernelType, int blockNum = -1, int rdmaBlockNum = -1,
-                                    int warpPerBlock = -1, hipStream_t = 0);
+                                    int warpPerBlock = -1, hipStream_t = 0, int hiddenDim = -1);
   void LaunchCombineForStandardMoE(KernelType, int blockNum = -1, int rdmaBlockNum = -1,
-                                   int warpPerBlock = -1, hipStream_t = 0);
+                                   int warpPerBlock = -1, hipStream_t = 0, int hiddenDim = -1);
 
   void LaunchConvertDispatchOutputKernel(const void* dispatchOutX, const void* dispatchOutTopkIdx,
                                          void* packedRecvX, int* packedRecvCount,
                                          int* packedRecvSrcInfo, int64_t* packedRecvLayoutRange,
-                                         int blockNum = -1, int warpPerBlock = -1, hipStream_t = 0);
+                                         int blockNum = -1, int warpPerBlock = -1,
+                                         hipStream_t = 0, int hiddenDim = -1);
   void LaunchConvertCombineInputKernel(const void* packedRecvX, const void* packedRecvSrcInfo,
                                        const void* packedRecvLayoutRange, void* combineInput,
                                        mori::application::SymmMemObjPtr shmemCombineInpTokMemObj,
-                                       int blockNum = -1, int warpPerBlock = -1, hipStream_t = 0);
+                                       int blockNum = -1, int warpPerBlock = -1,
+                                       hipStream_t = 0, int hiddenDim = -1);
 #endif
 
   void LaunchDispatchRecv(KernelType, int blockNum = -1, int warpPerBlock = -1, hipStream_t = 0);
@@ -372,7 +376,8 @@ struct EpDispatchCombineArgs {
 };
 
 using EpDispatchCombineArgsVariant =
-    std::variant<EpDispatchCombineArgs<float>, EpDispatchCombineArgs<hip_bfloat16>
+    std::variant<EpDispatchCombineArgs<float>, EpDispatchCombineArgs<hip_bfloat16>,
+                 EpDispatchCombineArgs<mori_fp4x2_e2m1>
 #ifdef MORI_FP8_TYPE_FNUZ_ENABLED
                  ,
                  EpDispatchCombineArgs<__hip_fp8_e4m3_fnuz>
@@ -461,6 +466,8 @@ inline EpDispatchCombineArgsVariant GetEpDispatchCombineArgsByInputType(
     case HIP_R_8F_E4M3_FNUZ:
       return GetEpDispatchCombineArgs<__hip_fp8_e4m3_fnuz>(handle, rdmaBlockNum);
 #endif
+    case HIP_R_4F_E2M1:
+      return GetEpDispatchCombineArgs<mori_fp4x2_e2m1>(handle, rdmaBlockNum);
     default:
       std::ostringstream oss;
       oss << "Unsupported inputType " << HipDataTypeToString(handle.inputType)

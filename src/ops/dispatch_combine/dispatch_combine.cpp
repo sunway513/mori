@@ -285,31 +285,35 @@ void EpDispatchCombineHandle::FinalizeBarrier() {
 }
 
 void EpDispatchCombineHandle::LaunchIntraNodeDispatch(int blockNum, int rdmaBlockNum,
-                                                      int warpPerBlock, hipStream_t stream) {
-  LaunchDispatch(KernelType::IntraNode, blockNum, rdmaBlockNum, warpPerBlock, stream);
+                                                      int warpPerBlock, hipStream_t stream,
+                                                      int hiddenDim) {
+  LaunchDispatch(KernelType::IntraNode, blockNum, rdmaBlockNum, warpPerBlock, stream, hiddenDim);
 }
 
 void EpDispatchCombineHandle::LaunchInterNodeDispatch(int blockNum, int rdmaBlockNum,
-                                                      int warpPerBlock, hipStream_t stream) {
-  LaunchDispatch(KernelType::InterNode, blockNum, rdmaBlockNum, warpPerBlock, stream);
+                                                      int warpPerBlock, hipStream_t stream,
+                                                      int hiddenDim) {
+  LaunchDispatch(KernelType::InterNode, blockNum, rdmaBlockNum, warpPerBlock, stream, hiddenDim);
 }
 
 void EpDispatchCombineHandle::LaunchIntraNodeCombine(int blockNum, int rdmaBlockNum,
                                                      int warpPerBlock, int useExternalInpBuf,
-                                                     hipStream_t stream) {
+                                                     hipStream_t stream, int hiddenDim) {
   LaunchCombine(KernelType::IntraNode, blockNum, rdmaBlockNum, warpPerBlock, useExternalInpBuf,
-                stream);
+                stream, hiddenDim);
 }
 
 void EpDispatchCombineHandle::LaunchInterNodeCombine(int blockNum, int rdmaBlockNum,
                                                      int warpPerBlock, int useExternalInpBuf,
-                                                     hipStream_t stream) {
+                                                     hipStream_t stream, int hiddenDim) {
   LaunchCombine(KernelType::InterNode, blockNum, rdmaBlockNum, warpPerBlock, useExternalInpBuf,
-                stream);
+                stream, hiddenDim);
 }
 
 void EpDispatchCombineHandle::LaunchDispatch(KernelType kernelType, int blockNum, int rdmaBlockNum,
-                                             int warpPerBlock, hipStream_t stream) {
+                                             int warpPerBlock, hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   size_t actualRdmaBlockNum = (rdmaBlockNum <= 0) ? config.rdmaBlockNum : rdmaBlockNum;
   dim3 grid((blockNum <= 0) ? config.blockNum : blockNum);
@@ -324,6 +328,7 @@ void EpDispatchCombineHandle::LaunchDispatch(KernelType kernelType, int blockNum
       [&](auto&& args) {
         using ArgsT = std::decay_t<decltype(args)>;
         using DataT = typename ArgsT::data_type;
+        args.config.hiddenDim = actualHiddenDim;
 
         if (kernelType == KernelType::InterNode) {
           assert(config.useExternalInpBuffer);
@@ -372,9 +377,17 @@ void EpDispatchCombineHandle::LaunchDispatchRecv(KernelType kernelType, int bloc
       },
       argsVariant);
 }
+// Force emission of this kernel specialization to avoid runtime missing-symbol
+// for bf16->fp8 direct-cast combine on some HIP toolchain configurations.
+template __global__ void
+EpCombineIntraNodeKernel<hip_bfloat16, /*UseP2PRead=*/false, /*EnableStdMoE=*/false,
+                         /*UseFp8DirectCast=*/true>(EpDispatchCombineArgs<hip_bfloat16> args);
+
 void EpDispatchCombineHandle::LaunchCombine(KernelType kernelType, int blockNum, int rdmaBlockNum,
                                             int warpPerBlock, int useExternalInpBuf,
-                                            hipStream_t stream) {
+                                            hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   // Determine actual values: use parameter if >= 0, otherwise use config
   const size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   const size_t actualRdmaBlockNum = (rdmaBlockNum <= 0) ? config.rdmaBlockNum : rdmaBlockNum;
@@ -391,6 +404,7 @@ void EpDispatchCombineHandle::LaunchCombine(KernelType kernelType, int blockNum,
 
         // Override args.config.useExternalInpBuffer with the actual value
         args.config.useExternalInpBuffer = actualUseExternalInpBuffer;
+        args.config.hiddenDim = actualHiddenDim;
 
         size_t sharedMemSize =
             actualWarpNumPerBlock * config.numExpertPerToken * (sizeof(DataT**) + sizeof(float**));
@@ -399,10 +413,14 @@ void EpDispatchCombineHandle::LaunchCombine(KernelType kernelType, int blockNum,
           EpCombineInterNodeKernel<<<grid, block, sharedMemSize, stream>>>(args);
         } else if (kernelType == KernelType::InterNodeV1) {
           assert(actualUseExternalInpBuffer);
+          EpCombineSync<<<this->multiProcessorCount, block, 0, stream>>>(args);
+          EpCombineSyncBarrier<<<1, warpSize, 0, stream>>>(args);
           EpCombineInterNodeV1Kernel<<<grid, block, sharedMemSize, stream>>>(args);
           EpCombineAll<<<this->multiProcessorCount, block, sharedMemSize, stream>>>(args);
         } else if (kernelType == KernelType::InterNodeV1LL) {
           assert(actualUseExternalInpBuffer);
+          EpCombineSync<<<this->multiProcessorCount, block, 0, stream>>>(args);
+          EpCombineSyncBarrier<<<1, warpSize, 0, stream>>>(args);
           EpCombineInterNodeV1KernelLowLatency<<<grid, block, sharedMemSize, stream>>>(args);
           EpCombineAll<<<this->multiProcessorCount, block, sharedMemSize, stream>>>(args);
         } else if (kernelType == KernelType::IntraNode) {
@@ -413,9 +431,23 @@ void EpDispatchCombineHandle::LaunchCombine(KernelType kernelType, int blockNum,
 #else
           if (actualUseExternalInpBuffer) {
             // P2P write does not support zero-copy and provides better bandwidth and lower latency
-            EpCombineIntraNodeKernel<DataT, /*UseP2PRead=*/false>
-                <<<grid, block, sharedMemSize, stream>>>(args);
+            if constexpr (std::is_same_v<DataT, hip_bfloat16>) {
+              const bool useFp8DirectCast = (config.quantType == QuantType::Fp8DirectCast);
+              if (useFp8DirectCast) {
+                EpCombineIntraNodeKernel<hip_bfloat16, /*UseP2PRead=*/false,
+                                         /*EnableStdMoE=*/false, /*UseFp8DirectCast=*/true>
+                    <<<grid, block, sharedMemSize, stream>>>(args);
+              } else {
+                EpCombineIntraNodeKernel<DataT, /*UseP2PRead=*/false>
+                    <<<grid, block, sharedMemSize, stream>>>(args);
+              }
+            } else {
+              EpCombineIntraNodeKernel<DataT, /*UseP2PRead=*/false>
+                  <<<grid, block, sharedMemSize, stream>>>(args);
+            }
           } else {  // zero-copy mode (requires P2P read)
+            assert(config.quantType != QuantType::Fp8DirectCast &&
+                   "Fp8DirectCast is not supported in zero-copy mode");
             EpCombineIntraNodeKernel<DataT, /*UseP2PRead=*/true>
                 <<<grid, block, sharedMemSize, stream>>>(args);
           }
@@ -458,7 +490,9 @@ void EpDispatchCombineHandle::LaunchCombineRecv(KernelType kernelType, int block
 #ifdef ENABLE_STANDARD_MOE_ADAPT
 void EpDispatchCombineHandle::LaunchDispatchForStandardMoE(KernelType kernelType, int blockNum,
                                                            int rdmaBlockNum, int warpPerBlock,
-                                                           hipStream_t stream) {
+                                                           hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   size_t actualRdmaBlockNum = (rdmaBlockNum <= 0) ? config.rdmaBlockNum : rdmaBlockNum;
   dim3 grid((blockNum <= 0) ? config.blockNum : blockNum);
@@ -473,6 +507,7 @@ void EpDispatchCombineHandle::LaunchDispatchForStandardMoE(KernelType kernelType
       [&](auto&& args) {
         using ArgsT = std::decay_t<decltype(args)>;
         using DataT = typename ArgsT::data_type;
+        args.config.hiddenDim = actualHiddenDim;
 
         if (kernelType == KernelType::InterNodeV1LL) {
           EpDispatchCopyToStaging<<<this->multiProcessorCount, block, 0, stream>>>(args);
@@ -491,7 +526,9 @@ void EpDispatchCombineHandle::LaunchDispatchForStandardMoE(KernelType kernelType
 
 void EpDispatchCombineHandle::LaunchCombineForStandardMoE(KernelType kernelType, int blockNum,
                                                           int rdmaBlockNum, int warpPerBlock,
-                                                          hipStream_t stream) {
+                                                          hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   size_t actualRdmaBlockNum = (rdmaBlockNum <= 0) ? config.rdmaBlockNum : rdmaBlockNum;
   dim3 grid((blockNum <= 0) ? config.blockNum : blockNum);
@@ -502,10 +539,13 @@ void EpDispatchCombineHandle::LaunchCombineForStandardMoE(KernelType kernelType,
       [&](auto&& args) {
         using ArgsT = std::decay_t<decltype(args)>;
         using DataT = typename ArgsT::data_type;
+        args.config.hiddenDim = actualHiddenDim;
 
         size_t sharedMemSize =
             actualWarpNumPerBlock * config.numExpertPerToken * (sizeof(DataT**) + sizeof(float**));
         if (kernelType == KernelType::InterNodeV1LL) {
+          EpCombineSync<<<this->multiProcessorCount, block, 0, stream>>>(args);
+          EpCombineSyncBarrier<<<1, warpSize, 0, stream>>>(args);
           EpCombineInterNodeV1KernelLowLatency<DataT, /*EnableStdMoE=*/true>
               <<<grid, block, sharedMemSize, stream>>>(args);
           EpCombineAll<<<this->multiProcessorCount, block, sharedMemSize, stream>>>(args);
@@ -530,13 +570,16 @@ __global__ void ConvertDispatchOutputKernel(ConvertDispatchOutputArgs args) {
 void EpDispatchCombineHandle::LaunchConvertDispatchOutputKernel(
     const void* dispatchOutX, const void* dispatchOutTopkIdx, void* packedRecvX,
     int* packedRecvCount, int* packedRecvSrcInfo, int64_t* packedRecvLayoutRange, int blockNum,
-    int warpPerBlock, hipStream_t stream) {
+    int warpPerBlock, hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   dim3 grid((blockNum <= 0) ? config.blockNum : blockNum);
   dim3 block(warpSize * actualWarpNumPerBlock);
 
   ConvertDispatchOutputArgs args{};
   args.config = config;
+  args.config.hiddenDim = actualHiddenDim;
   args.dispatchOutX = dispatchOutX;
   args.dispatchOutTopkIdx = dispatchOutTopkIdx;
   args.dispatchSrcTokenPos = dispTokIdToSrcTokIdMemObj->template GetAs<index_t*>();
@@ -554,13 +597,16 @@ void EpDispatchCombineHandle::LaunchConvertDispatchOutputKernel(
 void EpDispatchCombineHandle::LaunchConvertCombineInputKernel(
     const void* packedRecvX, const void* packedRecvSrcInfo, const void* packedRecvLayoutRange,
     void* combineInput, mori::application::SymmMemObjPtr shmemCombineInpTokMemObj, int blockNum,
-    int warpPerBlock, hipStream_t stream) {
+    int warpPerBlock, hipStream_t stream, int hiddenDim) {
+  const int actualHiddenDim = (hiddenDim > 0) ? hiddenDim : config.hiddenDim;
+  assert(actualHiddenDim > 0 && actualHiddenDim <= config.hiddenDim);
   size_t actualWarpNumPerBlock = (warpPerBlock <= 0) ? config.warpNumPerBlock : warpPerBlock;
   dim3 grid((blockNum <= 0) ? config.blockNum : blockNum);
   dim3 block(warpSize * actualWarpNumPerBlock);
 
   ConvertCombineInputArgs args{};
   args.config = config;
+  args.config.hiddenDim = actualHiddenDim;
   args.packedRecvX = packedRecvX;
   args.topkIdx = shmemOutIndicesMemObj->Get();
   args.topkWeights = shmemDispatchOutWeightsMemObj->Get();
