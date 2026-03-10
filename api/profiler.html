@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Profiler &mdash; MORI 0.1.0 documentation</title>
+  <title>MORI-VIZ Kernel Profiler &mdash; MORI 0.1.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Communication Operations" href="communication.html" /> 
+    <link rel="prev" title="Communication APIs" href="communication.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -55,49 +55,134 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#basic-communication-example">Basic Communication Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#all-gather-example">All-Gather Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#profiling-example">Profiling Example</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#performance-tips">Performance Tips</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#mori-ep-dispatch-and-combine">MORI-EP: Dispatch and Combine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#mori-io-point-to-point-transfers">MORI-IO: Point-to-Point Transfers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#mori-shmem-symmetric-memory">MORI Shmem: Symmetric Memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#profiling-with-mori-viz">Profiling with MORI-VIZ</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../quickstart.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Features</span></p>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-INTRO.html">MORI-IO Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#table-of-contents">Table of Contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#design-concepts">Design &amp; Concepts</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#workflow">Workflow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#architecture">Architecture</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#python-api-quick-reference">Python API Quick Reference</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#example-basic-read-write">Example: Basic Read/Write</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#environment-configuration">Environment &amp; Configuration</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-INTRO.html#source-files">Source Files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-EP-GUIDE.html">MORI-EP User Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#kernel-types">1. Kernel Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#configuration">2. Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#epdispatchcombineconfig">EpDispatchCombineConfig</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-BENCHMARK.html">MORI-IO Benchmark</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-commands">Benchmark Commands</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-arguments">Benchmark Arguments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-read">Results: Thor2 RDMA Read</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-write">Results: Thor2 RDMA Write</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#message-size-sweep">Message Size Sweep</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#batch-size-sweep">Batch Size Sweep</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#operator-api">3. Operator API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#epdispatchcombineop">EpDispatchCombineOp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#dispatch">dispatch()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#combine">combine()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#split-dispatch-combine-send-recv">Split dispatch/combine (send + recv)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#reset">reset()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#get-dispatch-src-token-pos">get_dispatch_src_token_pos()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#get-registered-combine-input-buffer">get_registered_combine_input_buffer()</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-cx7-rdma-batch-size-1">Results: CX7 RDMA (Batch Size = 1)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#write">Write</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#read">Read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#standard-moe-compatibility-deepep">4. Standard MoE Compatibility (DeepEP)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#dispatch-standard-moe">dispatch_standard_moe()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#combine-standard-moe">combine_standard_moe()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#convert-dispatch-output">convert_dispatch_output()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#convert-combine-input">convert_combine_input()</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#initialization">5. Initialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#method-1-pytorch-process-group-recommended">Method 1: PyTorch Process Group (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#method-2-unique-id-no-pytorch-distributed">Method 2: Unique ID (No PyTorch Distributed)</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../MORI-EP-BENCHMARK.html">MORI-EP Benchmark</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#intra-node">Intra-node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#inter-node">Inter-node</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#nic-selection">NIC Selection</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#launch-configuration">6. Launch Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#manual-mode-default">Manual Mode (Default)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#auto-mode">Auto Mode</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#complete-example">7. Complete Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#environment-variables">8. Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#benchmarking">9. Benchmarking</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#intra-node">Intra-node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#inter-node">Inter-node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-EP-GUIDE.html#reference-performance-deepseek-v3-config">Reference Performance (DeepSeek V3 config)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#profiling-with-mori-viz">10. Profiling with MORI-VIZ</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#framework-integration">11. Framework Integration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#build-options">Build Options</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-GUIDE.html#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html">MORI Shmem Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#quick-reference">Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#concepts">1. Concepts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#symmetric-memory">Symmetric Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#processing-element-pe">Processing Element (PE)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#symmetric-heap">Symmetric Heap</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#initialization">2. Initialization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#method-1-pytorch-process-group-recommended">Method 1: PyTorch Process Group (Recommended)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#method-2-unique-id-no-pytorch-distributed">Method 2: Unique ID (No PyTorch Distributed)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#method-3-mpi-communicator-c-mpi-environments">Method 3: MPI Communicator (C++ / MPI environments)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#initialization-comparison">Initialization Comparison</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#finalization">Finalization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#query-apis">3. Query APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#memory-management">4. Memory Management</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#allocating-symmetric-memory">Allocating Symmetric Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#freeing-symmetric-memory">Freeing Symmetric Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#registering-existing-buffers">Registering Existing Buffers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#p2p-address-translation">5. P2P Address Translation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#synchronization">6. Synchronization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#hip-module-init-triton-integration">7. HIP Module Init (Triton Integration)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#initialization-flags">8. Initialization Flags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#environment-variables">Environment Variables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-SHMEM-GUIDE.html#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-IR-GUIDE.html">MORI-IR Guide</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#host-side-python-api">1. Host-Side Python API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#mori-ir-framework-agnostic"><code class="docutils literal notranslate"><span class="pre">mori.ir</span></code> (framework-agnostic)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#mori-ir-triton-triton-specific-reference-backend"><code class="docutils literal notranslate"><span class="pre">mori.ir.triton</span></code> (Triton-specific reference backend)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#device-bitcode">2. Device Bitcode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#device-functions">3. Device Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#query">Query</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#point-to-point">Point-to-Point</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#putnbi-thread-warp-block">PutNbi (Thread / Warp / Block)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#putnbi-with-signal">PutNbi with Signal</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#immediate-put">Immediate Put</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#atomics">Atomics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#wait">Wait</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IR-GUIDE.html#synchronization">Synchronization</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#integration-example-triton">4. Integration Example: Triton</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#integration-example-raw-bitcode-no-framework">5. Integration Example: Raw Bitcode (no framework)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#bitcode-jit-compilation">6. Bitcode JIT Compilation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#examples">7. Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#testing">8. Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IR-GUIDE.html#known-limitations">Known Limitations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-GUIDE.html">MORI-IO Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#design-concepts">Design &amp; Concepts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#workflow">Workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#python-api-quick-reference">Python API Quick Reference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#example-basic-read-write">Example: Basic Read/Write</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#environment-configuration">Environment &amp; Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-GUIDE.html#source-files">Source Files</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../PROFILER.html">MORI-VIZ (Visualizer)</a><ul>
@@ -123,25 +208,47 @@
 </ul>
 </li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="communication.html">Communication Operations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#all-reduce">All-Reduce</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#all-gather">All-Gather</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#reduce-scatter">Reduce-Scatter</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#broadcast">Broadcast</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#barrier">Barrier</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#send-recv">Send/Recv</a></li>
-<li class="toctree-l2"><a class="reference internal" href="communication.html#performance-characteristics">Performance Characteristics</a></li>
+<p class="caption" role="heading"><span class="caption-text">Benchmarks</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-EP-BENCHMARK.html">MORI-EP Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#intra-node">Intra-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#inter-node">Inter-node</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-EP-BENCHMARK.html#nic-selection">NIC Selection</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Profiler</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#starting-the-profiler">Starting the Profiler</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#saving-results">Saving Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#analyzing-results">Analyzing Results</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#context-manager">Context Manager</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#advanced-features">Advanced Features</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#visualization">Visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../MORI-IO-BENCHMARK.html">MORI-IO Benchmark</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#table-of-contents">Table of Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-commands">Benchmark Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#benchmark-arguments">Benchmark Arguments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-read">Results: Thor2 RDMA Read</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-thor2-rdma-write">Results: Thor2 RDMA Write</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#message-size-sweep">Message Size Sweep</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#batch-size-sweep">Batch Size Sweep</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#results-cx7-rdma-batch-size-1">Results: CX7 RDMA (Batch Size = 1)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#write">Write</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../MORI-IO-BENCHMARK.html#read">Read</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">API Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="communication.html">Communication APIs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#mori-ep-expert-parallelism">MORI-EP (Expert Parallelism)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#mori-shmem-symmetric-memory">MORI Shmem (Symmetric Memory)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#mori-io-point-to-point-i-o">MORI-IO (Point-to-Point I/O)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="communication.html#mori-ir-device-bitcode-integration">MORI-IR (Device Bitcode Integration)</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">MORI-VIZ Kernel Profiler</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#export-to-perfetto">export_to_perfetto</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#c-profiler-apis">C++ Profiler APIs</a></li>
 </ul>
 </li>
 </ul>
@@ -160,7 +267,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Profiler</li>
+      <li class="breadcrumb-item active">MORI-VIZ Kernel Profiler</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/profiler.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -170,94 +277,109 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="profiler">
-<h1>Profiler<a class="headerlink" href="#profiler" title="Link to this heading"></a></h1>
-<p>MORI includes a built-in profiler for analyzing communication performance.</p>
-<section id="starting-the-profiler">
-<h2>Starting the Profiler<a class="headerlink" href="#starting-the-profiler" title="Link to this heading"></a></h2>
+  <section id="mori-viz-kernel-profiler">
+<h1>MORI-VIZ Kernel Profiler<a class="headerlink" href="#mori-viz-kernel-profiler" title="Link to this heading"></a></h1>
+<p>MORI-VIZ is a warp-level GPU kernel profiler with Perfetto integration. It captures fine-grained timing data from dispatch/combine kernels.</p>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<p>Build MORI with profiling enabled:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">ENABLE_PROFILER</span><span class="o">=</span>ON<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p><strong>Capture and export traces:</strong></p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">mori</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">mori.kernel_profiler</span><span class="w"> </span><span class="kn">import</span> <span class="n">export_to_perfetto</span>
 
-<span class="c1"># Start profiling</span>
-<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
-
-<span class="c1"># Your code here</span>
-<span class="n">mori</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
-
-<span class="c1"># Stop profiling</span>
-<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="c1"># Run dispatch/combine operations first, then:</span>
+<span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">mori</span><span class="o">.</span><span class="n">cpp</span><span class="p">,</span> <span class="s2">&quot;get_debug_time_buf&quot;</span><span class="p">):</span>
+    <span class="n">trace_buffer</span> <span class="o">=</span> <span class="n">mori</span><span class="o">.</span><span class="n">cpp</span><span class="o">.</span><span class="n">get_debug_time_buf</span><span class="p">(</span><span class="n">op</span><span class="o">.</span><span class="n">_handle</span><span class="p">)</span>
+    <span class="n">export_to_perfetto</span><span class="p">(</span><span class="n">trace_buffer</span><span class="p">,</span> <span class="s2">&quot;ep_trace.json&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Visualize:</strong> Open the JSON file at <a class="reference external" href="https://ui.perfetto.dev/">ui.perfetto.dev</a>.</p>
 </section>
-<section id="saving-results">
-<h2>Saving Results<a class="headerlink" href="#saving-results" title="Link to this heading"></a></h2>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Save as JSON</span>
-<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="s2">&quot;profile.json&quot;</span><span class="p">)</span>
-
-<span class="c1"># Save as CSV</span>
-<span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">save_results</span><span class="p">(</span><span class="s2">&quot;profile.csv&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;csv&quot;</span><span class="p">)</span>
+<section id="export-to-perfetto">
+<h2>export_to_perfetto<a class="headerlink" href="#export-to-perfetto" title="Link to this heading"></a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">export_to_perfetto</span><span class="p">(</span>
+    <span class="n">trace_buffer</span><span class="p">,</span>
+    <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;trace.json&quot;</span><span class="p">,</span>
+    <span class="n">slot_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">gpu_freq_ghz</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">validate_pairs</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">sanitize_orphans</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
+<p><strong>Parameters:</strong></p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25.0%" />
+<col style="width: 15.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Default</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">trace_buffer</span></code></p></td>
+<td></td>
+<td><p>Raw trace buffer from <code class="docutils literal notranslate"><span class="pre">mori.cpp.get_debug_time_buf(handle)</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">filename</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">&quot;trace.json&quot;</span></code></p></td>
+<td><p>Output file path (Perfetto JSON format)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">slot_map</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>Custom slot name mapping (uses built-in profiler slots if None)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gpu_freq_ghz</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p></td>
+<td><p>GPU clock frequency; auto-detected via <code class="docutils literal notranslate"><span class="pre">get_cur_device_wall_clock_freq_mhz()</span></code> if None</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">validate_pairs</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Validate begin/end event pairs</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sanitize_orphans</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">True</span></code></p></td>
+<td><p>Remove unpaired events</p></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="analyzing-results">
-<h2>Analyzing Results<a class="headerlink" href="#analyzing-results" title="Link to this heading"></a></h2>
-<p>Profile data includes:</p>
-<ul class="simple">
-<li><p>Operation name</p></li>
-<li><p>Duration (microseconds)</p></li>
-<li><p>Tensor size (bytes)</p></li>
-<li><p>Bandwidth (GB/s)</p></li>
-<li><p>Timestamp</p></li>
-</ul>
-<p><strong>Example output:</strong></p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
-<span class="w">  </span><span class="nt">&quot;operations&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
-<span class="w">    </span><span class="p">{</span>
-<span class="w">      </span><span class="nt">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;all_reduce&quot;</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;duration_us&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">125.3</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;size_bytes&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4194304</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;bandwidth_gbps&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">31.8</span><span class="p">,</span>
-<span class="w">      </span><span class="nt">&quot;timestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1234567890</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">]</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</section>
-<section id="context-manager">
-<h2>Context Manager<a class="headerlink" href="#context-manager" title="Link to this heading"></a></h2>
-<p>Use as a context manager for automatic start/stop:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">profile</span><span class="p">():</span>
-    <span class="n">mori</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="n">tensor</span><span class="p">)</span>
-    <span class="n">mori</span><span class="o">.</span><span class="n">barrier</span><span class="p">()</span>
-
-<span class="c1"># Results automatically saved</span>
-</pre></div>
-</div>
-</section>
-<section id="advanced-features">
-<h2>Advanced Features<a class="headerlink" href="#advanced-features" title="Link to this heading"></a></h2>
-<p><strong>Filter by operation:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">operations</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;all_reduce&quot;</span><span class="p">,</span> <span class="s2">&quot;all_gather&quot;</span><span class="p">])</span>
-</pre></div>
-</div>
-<p><strong>Set output directory:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">set_output_dir</span><span class="p">(</span><span class="s2">&quot;/path/to/profiles&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p><strong>Enable detailed logging:</strong></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mori</span><span class="o">.</span><span class="n">profiler</span><span class="o">.</span><span class="n">set_log_level</span><span class="p">(</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</section>
-<section id="visualization">
-<h2>Visualization<a class="headerlink" href="#visualization" title="Link to this heading"></a></h2>
-<p>MORI profiler output can be visualized with standard tools:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert to Chrome trace format</span>
-python<span class="w"> </span>-m<span class="w"> </span>mori.profiler.convert<span class="w"> </span>profile.json<span class="w"> </span>--format<span class="w"> </span>chrome
-
-<span class="c1"># View in chrome://tracing</span>
-</pre></div>
-</div>
+<section id="c-profiler-apis">
+<h2>C++ Profiler APIs<a class="headerlink" href="#c-profiler-apis" title="Link to this heading"></a></h2>
+<p>Available via <code class="docutils literal notranslate"><span class="pre">mori.cpp</span></code> when built with <code class="docutils literal notranslate"><span class="pre">ENABLE_PROFILER=ON</span></code>:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 40.0%" />
+<col style="width: 60.0%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Function</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_debug_time_buf(handle)</span></code></p></td>
+<td><p>Get raw trace buffer from an EP handle</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">get_debug_time_offset(handle)</span></code></p></td>
+<td><p>Get current write offset in the trace buffer</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">get_cur_device_wall_clock_freq_mhz()</span></code></p></td>
+<td><p>Get GPU wall clock frequency in MHz</p></td>
+</tr>
+</tbody>
+</table>
+<p>See <a class="reference external" href="../PROFILER.md">PROFILER.md</a> for full profiler documentation.</p>
 </section>
 </section>
 
@@ -265,7 +387,7 @@ python<span class="w"> </span>-m<span class="w"> </span>mori.profiler.convert<sp
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="communication.html" class="btn btn-neutral float-left" title="Communication Operations" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="communication.html" class="btn btn-neutral float-left" title="Communication APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
